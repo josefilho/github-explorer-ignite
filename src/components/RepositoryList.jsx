@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react/cjs/react.production.min";
 import { RepositoryItem } from "./RepositoryItem";
 
 import '../styles/repositories.scss';
@@ -9,6 +10,13 @@ const repository = {
 }
 
 export function RepositoryList() {
+  const [repositories, setRepositories] = useState([]);
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/josefilho/repos')
+    .then( response => response.json())
+    .then(data => setRepositories(data))
+  }, []);
 
   return (
     <section>
